@@ -27,7 +27,7 @@ export default async function Home({ searchParams }: Props) {
 
 
   return (
-    <div>
+    <div className="px-4 md:px-0 mt-2">
 
       {/* search bar. */}
       <SearchBar placeholder="Search Product name." />
