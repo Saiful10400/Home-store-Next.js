@@ -2,7 +2,11 @@
 
 import { Tproduct } from "@/types";
 import Image from "next/image";
- 
+import {
+  CalendarDays,
+  Package,
+  ShoppingBasket,
+} from "lucide-react";
 
 type ProductCardProps = {
   product: Tproduct;
@@ -11,93 +15,321 @@ type ProductCardProps = {
 const ProductCard = ({ product }: ProductCardProps) => {
   const isInStock = product.stock !== null && product.stock > 0;
 
+  const formattedExpiry = product.expiredDate
+    ? new Date(product.expiredDate).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    : null;
+
   return (
     <div
-      className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="
+        group relative flex h-full flex-col overflow-hidden
+        rounded-3xl
+        border border-emerald-100
+        bg-white
+        shadow-[0_4px_20px_rgba(16,185,129,0.08)]
+        transition-all duration-300
+        hover:-translate-y-1.5
+        hover:border-emerald-200
+        hover:shadow-[0_15px_40px_rgba(16,185,129,0.16)]
+      "
     >
-      {/* Image */}
-      <div className="relative flex h-60 items-center justify-center overflow-hidden bg-gray-50 p-5">
+      {/* ================= IMAGE ================= */}
+      <div
+        className="
+          relative
+          h-52
+          w-full
+          overflow-hidden
+          bg-emerald-50
+          sm:h-60
+          md:h-64
+          lg:h-72
+        "
+      >
         <Image
           src={product.image}
           alt={product.englishName}
-          width={220}
-          height={220}
-          className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+          fill
+          sizes="
+            (max-width: 640px) 100vw,
+            (max-width: 768px) 50vw,
+            (max-width: 1024px) 33vw,
+            25vw
+          "
+          className="
+            object-cover
+            transition-transform
+            duration-500
+            ease-out
+            group-hover:scale-105
+          "
         />
 
-        {/* Stock Status */}
-        <div className="absolute right-3 top-3">
+        {/* Image Overlay */}
+        <div
+          className="
+            pointer-events-none
+            absolute
+            inset-0
+            bg-gradient-to-t
+            from-emerald-950/20
+            via-transparent
+            to-transparent
+          "
+        />
+
+        {/* Stock Badge */}
+        <div className="absolute right-3 top-3 z-10">
           {isInStock ? (
-            <span className="rounded-full bg-green-100 px-3 py-1.5 text-xs font-semibold text-green-700">
+            <span
+              className="
+                inline-flex
+                items-center
+                gap-1.5
+                rounded-full
+                border
+                border-emerald-200
+                bg-white/90
+                px-3
+                py-1.5
+                text-[11px]
+                font-bold
+                text-emerald-700
+                shadow-sm
+                backdrop-blur-md
+              "
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
               In Stock
             </span>
           ) : (
-            <span className="rounded-full bg-red-100 px-3 py-1.5 text-xs font-semibold text-red-600">
+            <span
+              className="
+                inline-flex
+                items-center
+                gap-1.5
+                rounded-full
+                border
+                border-red-200
+                bg-white/90
+                px-3
+                py-1.5
+                text-[11px]
+                font-bold
+                text-red-600
+                shadow-sm
+                backdrop-blur-md
+              "
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
               Out of Stock
             </span>
           )}
         </div>
+
+        {/* Product Icon */}
+        <div
+          className="
+            absolute
+            bottom-3
+            left-3
+            z-10
+            flex
+            h-9
+            w-9
+            items-center
+            justify-center
+            rounded-xl
+            bg-white/90
+            text-emerald-600
+            shadow-md
+            backdrop-blur-md
+          "
+        >
+          <ShoppingBasket size={17} />
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="p-5">
+      {/* ================= CONTENT ================= */}
+      <div className="flex flex-1 flex-col p-4 sm:p-5">
         {/* Product Name */}
-        <div className="mb-5">
-          <h2 className="line-clamp-1 text-lg font-bold text-gray-900">
+        <div className="mb-4">
+          <h2
+            className="
+              line-clamp-1
+              text-base
+              font-bold
+              tracking-tight
+              text-emerald-950
+              sm:text-lg
+            "
+          >
             {product.englishName}
           </h2>
 
-          <p className="mt-1 line-clamp-1 text-sm text-gray-500">
+          <p
+            className="
+              mt-1
+              line-clamp-1
+              text-xs
+              font-medium
+              text-emerald-700/60
+              sm:text-sm
+            "
+          >
             {product.banglaName}
           </p>
         </div>
 
-        {/* Price */}
-        <div className="mb-5 flex items-end justify-between">
+        {/* ================= PRICE ================= */}
+        <div
+          className="
+            mb-4
+            flex
+            items-end
+            justify-between
+            rounded-2xl
+            bg-emerald-50
+            p-3
+            sm:p-4
+          "
+        >
+          {/* Selling Price */}
           <div>
-            <p className="mb-1 text-xs font-medium uppercase tracking-wide text-gray-400">
+            <p
+              className="
+                mb-1
+                text-[10px]
+                font-bold
+                uppercase
+                tracking-wider
+                text-emerald-600/60
+                sm:text-[11px]
+              "
+            >
               Selling Price
             </p>
 
-            <p className="text-xl font-bold text-pink-600">
+            <p
+              className="
+                text-xl
+                font-extrabold
+                tracking-tight
+                text-emerald-600
+                sm:text-2xl
+              "
+            >
               ৳{product.sellingPrice}
             </p>
           </div>
 
+          {/* Buying Price */}
           <div className="text-right">
-            <p className="mb-1 text-xs font-medium uppercase tracking-wide text-gray-400">
-              Buying Price
+            <p
+              className="
+                mb-1
+                text-[10px]
+                font-bold
+                uppercase
+                tracking-wider
+                text-gray-400
+                sm:text-[11px]
+              "
+            >
+              Buying
             </p>
 
-            <p className="text-sm font-semibold text-gray-600">
+            <p className="text-sm font-semibold text-gray-500 sm:text-base">
               ৳{product.buyingPrice}
             </p>
           </div>
         </div>
 
-        {/* Details */}
-        <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+        {/* ================= DETAILS ================= */}
+        <div
+          className="
+            mt-auto
+            grid
+            grid-cols-2
+            gap-3
+            border-t
+            border-emerald-100
+            pt-4
+          "
+        >
           {/* Stock */}
-          <div>
-            <p className="text-xs text-gray-400">Stock</p>
-
-            <p
-              className={`mt-1 text-sm font-semibold ${
-                isInStock ? "text-gray-700" : "text-red-500"
-              }`}
+          <div className="flex min-w-0 items-center gap-2">
+            <div
+              className="
+                flex
+                h-8
+                w-8
+                shrink-0
+                items-center
+                justify-center
+                rounded-lg
+                bg-emerald-50
+                text-emerald-600
+              "
             >
-              {product.stock !== null ? product.stock : "N/A"}
-            </p>
+              <Package size={15} />
+            </div>
+
+            <div className="min-w-0">
+              <p className="text-[10px] font-medium text-gray-400 sm:text-xs">
+                Stock
+              </p>
+
+              <p
+                className={`truncate text-xs font-bold sm:text-sm ${
+                  isInStock ? "text-emerald-700" : "text-red-500"
+                }`}
+              >
+                {product.stock !== null
+                  ? `${product.stock} available`
+                  : "N/A"}
+              </p>
+            </div>
           </div>
 
           {/* Expiry */}
-          {product.expiredDate && (
-            <div className="text-right">
-              <p className="text-xs text-gray-400">Expires</p>
+          {formattedExpiry ? (
+            <div className="flex min-w-0 items-center justify-end gap-2 text-right">
+              <div className="min-w-0">
+                <p className="text-[10px] font-medium text-gray-400 sm:text-xs">
+                  Expires
+                </p>
 
-              <p className="mt-1 text-sm font-medium text-gray-600">
-                {new Date(product.expiredDate).toLocaleDateString()}
-              </p>
+                <p className="truncate text-xs font-semibold text-gray-600 sm:text-sm">
+                  {formattedExpiry}
+                </p>
+              </div>
+
+              <div
+                className="
+                  flex
+                  h-8
+                  w-8
+                  shrink-0
+                  items-center
+                  justify-center
+                  rounded-lg
+                  bg-yellow-50
+                  text-yellow-600
+                "
+              >
+                <CalendarDays size={15} />
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center justify-end">
+              <span className="text-xs text-gray-400">
+                No expiry date
+              </span>
             </div>
           )}
         </div>
