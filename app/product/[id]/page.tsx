@@ -10,7 +10,9 @@ import {
   Tag,
   TrendingUp,
 } from "lucide-react";
+import ProductActions from "@/ui/ProductAction";
 
+ 
 type Props = {
   params: Promise<{ id: string }>;
 };
@@ -37,7 +39,8 @@ export default async function ProductPage({ params }: Props) {
 
   const product = await fetchProduct(id);
 
-  const isInStock = product.stock !== null && product.stock > 0;
+  const isInStock =
+    product.stock !== null && product.stock > 0;
 
   const buyingPrice = Number(product.buyingPrice);
   const sellingPrice = Number(product.sellingPrice);
@@ -58,7 +61,7 @@ export default async function ProductPage({ params }: Props) {
     : null;
 
   return (
-    <main className="min-h-screen bg-linear-to-br from-emerald-50 via-white to-lime-50 px-4 py-6 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-lime-50 px-4 py-6 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
 
         {/* ================= TOP BAR ================= */}
@@ -89,7 +92,11 @@ export default async function ProductPage({ params }: Props) {
           >
             <ArrowLeft
               size={17}
-              className="transition-transform duration-200 group-hover:-translate-x-1"
+              className="
+                transition-transform
+                duration-200
+                group-hover:-translate-x-1
+              "
             />
 
             Back to Products
@@ -114,7 +121,6 @@ export default async function ProductPage({ params }: Props) {
             "
           >
             <ShoppingBasket size={15} />
-
             Product Details
           </div>
         </div>
@@ -136,17 +142,17 @@ export default async function ProductPage({ params }: Props) {
             <div
               className="
                 relative
-                min-h-87.5
+                min-h-[350px]
                 overflow-hidden
-                bg-linear-to-br
+                bg-gradient-to-br
                 from-emerald-50
                 via-lime-50
                 to-yellow-50
-                sm:min-h-112.5
-                lg:min-h-150
+                sm:min-h-[450px]
+                lg:min-h-[600px]
               "
             >
-              {/* Decorative circles */}
+              {/* Decorative circle */}
               <div
                 className="
                   absolute
@@ -173,7 +179,7 @@ export default async function ProductPage({ params }: Props) {
                 "
               />
 
-              {/* Image */}
+              {/* Product Image */}
               <img
                 src={product.image}
                 alt={product.englishName}
@@ -181,21 +187,21 @@ export default async function ProductPage({ params }: Props) {
                   relative
                   z-10
                   h-full
-                  min-h-87.5
+                  min-h-[350px]
                   w-full
                   object-contain
                   p-6
                   transition-transform
                   duration-500
                   hover:scale-105
-                  sm:min-h-112.5
+                  sm:min-h-[450px]
                   sm:p-10
-                  lg:min-h-150
+                  lg:min-h-[600px]
                   lg:p-12
                 "
               />
 
-              {/* Stock Badge */}
+              {/* Stock Status */}
               <div className="absolute left-5 top-5 z-20">
                 {isInStock ? (
                   <span
@@ -266,7 +272,6 @@ export default async function ProductPage({ params }: Props) {
                 "
               >
                 <ShoppingBasket size={15} />
-
                 Grocery Product
               </div>
             </div>
@@ -274,7 +279,7 @@ export default async function ProductPage({ params }: Props) {
             {/* ================= PRODUCT INFORMATION ================= */}
             <div className="flex flex-col p-5 sm:p-8 lg:p-10">
 
-              {/* Product Name */}
+              {/* Product Heading */}
               <div className="mb-7">
                 <div className="mb-3 flex items-center gap-2">
                   <span
@@ -293,9 +298,9 @@ export default async function ProductPage({ params }: Props) {
                     Product
                   </span>
 
-                  {product.barCode && (
+                  {product._id && (
                     <span className="text-xs text-gray-400">
-                      #{product?._id?.slice(-6)}
+                      #{product._id.slice(-6)}
                     </span>
                   )}
                 </div>
@@ -322,7 +327,7 @@ export default async function ProductPage({ params }: Props) {
                 className="
                   mb-7
                   rounded-2xl
-                  bg-linear-to-r
+                  bg-gradient-to-r
                   from-emerald-50
                   to-lime-50
                   p-5
@@ -343,7 +348,14 @@ export default async function ProductPage({ params }: Props) {
 
                 <div className="flex flex-wrap items-end justify-between gap-4">
                   <div>
-                    <p className="text-4xl font-extrabold tracking-tight text-emerald-600">
+                    <p
+                      className="
+                        text-4xl
+                        font-extrabold
+                        tracking-tight
+                        text-emerald-600
+                      "
+                    >
                       ৳{sellingPrice}
                     </p>
 
@@ -551,7 +563,7 @@ export default async function ProductPage({ params }: Props) {
                 </div>
               </div>
 
-              {/* ================= SUMMARY ================= */}
+              {/* ================= PRODUCT ID ================= */}
               <div className="mt-7 border-t border-emerald-100 pt-6">
                 <div className="flex items-center gap-3">
                   <div
@@ -559,6 +571,7 @@ export default async function ProductPage({ params }: Props) {
                       flex
                       h-10
                       w-10
+                      shrink-0
                       items-center
                       justify-center
                       rounded-xl
@@ -571,7 +584,7 @@ export default async function ProductPage({ params }: Props) {
                     <Tag size={18} />
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs text-gray-400">
                       Product ID
                     </p>
@@ -583,33 +596,42 @@ export default async function ProductPage({ params }: Props) {
                 </div>
               </div>
 
+              {/* ================= UPDATE / DELETE ================= */}
+              <ProductActions
+                id={product._id}
+                englishName={product.englishName}
+                banglaName={product.banglaName}
+                buyingPrice={product.buyingPrice}
+                sellingPrice={product.sellingPrice}
+                stock={product.stock}
+                expiredDate={formattedExpiry}
+              />
+
               {/* Back Button */}
               <Link
                 href="/"
                 className="
-                  mt-7
+                  mt-3
                   flex
                   h-12
                   items-center
                   justify-center
                   gap-2
                   rounded-xl
-                  bg-emerald-500
+                  border
+                  border-emerald-100
+                  bg-white
                   px-5
                   text-sm
                   font-bold
-                  text-white
-                  shadow-lg
-                  shadow-emerald-500/20
+                  text-emerald-700
                   transition-all
                   duration-200
-                  hover:bg-emerald-600
-                  hover:shadow-xl
+                  hover:bg-emerald-50
                   active:scale-[0.99]
                 "
               >
                 <ArrowLeft size={18} />
-
                 Back to Products
               </Link>
             </div>

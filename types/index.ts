@@ -1,5 +1,5 @@
 export interface Tproduct {
-  _id?: string;
+  _id: string;
   englishName: string;
   banglaName: string;
   buyingPrice: string; // Represented as a string based on your payload ("8")
@@ -7,6 +7,6 @@ export interface Tproduct {
   image: string;
   barCode?: number;
   stock: number | null;
-  expiredDate?: string | Date | null; // Optional/nullable based on incomplete key
+  expiredDate: string | Date | null; // Optional/nullable based on incomplete key
  
 }
