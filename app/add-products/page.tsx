@@ -72,7 +72,7 @@ const CreateProduct = () => {
             // Upload image
             const photoUrl = await imageUploadToDb(imageFile);
 
-            const data: Tproduct = {
+            const data: Partial<Tproduct> = {
                 englishName,
                 banglaName,
                 buyingPrice: buyingPrice,
@@ -727,7 +727,7 @@ const CreateProduct = () => {
                 </form>
             </div>
         </div>
-    );
+    );          
 };
 
 export default CreateProduct;
