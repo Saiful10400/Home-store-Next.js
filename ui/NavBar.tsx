@@ -21,7 +21,9 @@ const NavBar = () => {
       className="
         sticky top-0 left-0 z-50
         hidden md:block
-        rounded-b-3xl
+        rounded-3xl
+        mx-2
+        mt-1
         border-b border-emerald-100
         bg-white/90
         shadow-[0_4px_20px_rgba(16,185,129,0.08)]

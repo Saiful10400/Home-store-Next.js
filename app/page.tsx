@@ -8,7 +8,7 @@ type Props = {
 };
 
 const fetchProducts = async (searchTerm?: string): Promise<Tproduct[]> => {
-  console.log(searchTerm + "this is search term.");
+ 
   const res = await fetch(searchTerm ? `https://home-store-backend.vercel.app/api/shop/find-product?searchTerm=${searchTerm}` : "https://home-store-backend.vercel.app/api/shop/find-product", {
     cache: "no-store",
   });
