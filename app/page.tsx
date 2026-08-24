@@ -27,7 +27,7 @@ export default async function Home({ searchParams }: Props) {
 
 
   return (
-    <div className="px-4 md:px-0 mt-2">
+    <div className="">
 
       {/* search bar. */}
       <SearchBar placeholder="Search Product name." />
@@ -35,7 +35,7 @@ export default async function Home({ searchParams }: Props) {
       {
         products.length === 0 ? <h1 className="text-center text-2xl font-bold mt-10">
           No products found for "{query}"
-        </h1> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1.5">
+        </h1> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1.5">
           {products.map((product) => (
             <ProductCard key={product.englishName} product={product} />
           ))}
