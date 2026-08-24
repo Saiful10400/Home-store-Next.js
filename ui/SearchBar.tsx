@@ -28,7 +28,7 @@ export default function SearchBar({
   const currentQuery = searchParams.get('q') || '';
 
   return (
-    <div className="w-full mb-3 lg:mb-5 sticky top-0 left-0 z-50  ">
+    <div className="w-full lg:mb-5 sticky top-4 mb-6 left-0 z-50  ">
       <div
         className="
           group flex w-full items-center

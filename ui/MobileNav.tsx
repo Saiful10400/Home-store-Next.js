@@ -27,7 +27,7 @@ const MobileNav = () => {
         className="
           mx-auto
           flex
-          h-[68px]
+          h-17
           max-w-md
           items-center
           justify-around
@@ -46,7 +46,7 @@ const MobileNav = () => {
           className={`
             group
             flex
-            min-w-[80px]
+            min-w-20
             flex-col
             items-center
             justify-center
