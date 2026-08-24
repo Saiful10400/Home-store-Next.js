@@ -118,9 +118,9 @@ const NavBar = () => {
           {/* Products */}
           <li>
             <Link
-              href="/products"
+              href="/add-products"
               className={`${navStyle} ${
-                pathname.startsWith("/products")
+                pathname.startsWith("/add-products")
                   ? activeStyle
                   : inactiveStyle
               }`}
@@ -131,7 +131,7 @@ const NavBar = () => {
                 className="transition-transform duration-200 group-hover:scale-110"
               />
 
-              <span>Products</span>
+              <span>Add Product</span>
             </Link>
           </li>
         </ul>
