@@ -27,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col  max-w-7xl mx-auto">
         <NavBar />
-        <div className="relative z-10 px-2">{children}</div>
+        <div className="relative z-10 px-2 my-2">{children}</div>
         <MobileNav />
       </body>
     </html>
