@@ -7,6 +7,7 @@ import {
   Package,
   ShoppingBasket,
 } from "lucide-react";
+import Link from "next/link";
 
 type ProductCardProps = {
   product: Tproduct;
@@ -24,7 +25,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
     : null;
 
   return (
-    <div
+    <Link
+    href={`/product/${product._id}`}
       className="
         group relative flex h-full flex-col overflow-hidden
         rounded-3xl
@@ -334,7 +336,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
